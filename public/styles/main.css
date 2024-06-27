@@ -1,0 +1,24 @@
+.brick {
+    margin: 5px;
+    background-color: #f8f9fa;
+}
+.brick a {
+    display: block;
+    padding: 15px;
+    color: inherit;
+    text-decoration: none;
+}
+.brick h4 {
+    margin: 0;
+}
+.container {
+    height: 100vh; /* Высота контейнера на всю высоту видимой части экрана */
+}
+
+.flex-shrink-0 {
+    max-height: 70%; /* Ограничиваем высоту сайдбара */
+
+}
+.sidebar {
+    margin-top: 5px;
+}
