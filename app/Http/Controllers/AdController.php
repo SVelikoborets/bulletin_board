@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Models\Category;
 use App\Models\Subcategory;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,17 +17,20 @@ class AdController extends Controller
     ];
 
     //форма создания объявления
+    //по выбранной подкатегории (если она выбрана)
     public function create($selected = null)
     {
         $categories = Category::with('subcategories')->get();
         return view('ads.create',['categories' =>$categories, 'selected' =>$selected]);
     }
 
-    //сохранение объявления в бд
+    //сохранение объявления в бд,если пользователь активен
     public function store(Request $request)
     {
         if (Auth::user()->isBanned()) {
-            return redirect()->route('login')->with('error', 'Вы не можете создавать объявления, так как ваш аккаунт заблокирован.');
+            return redirect()
+                ->route('login')
+                ->with('error', 'Вы не можете создавать объявления, так как ваш аккаунт заблокирован.');
         }
 
        $validated = $request->validate(self::AD_VALIDATOR);
@@ -56,22 +58,21 @@ class AdController extends Controller
         ]);
     }
 
-    //вывод списка объявлений
+    //вывод списка объявлений по категории-подкатегории
     public function advts($category, $subcategory)
     {
         $subcategory = Subcategory::where( 'slug', $subcategory )->firstOrFail();
-        $ads = $subcategory->ads()
+        $data = [
+            'ads' => $subcategory->ads()
             ->whereHas('user', function ($query) {
-            $query
-                ->where('banned', false);
-        })
+                $query->where('banned', false);
+            })
             ->latest()
-            ->paginate(5);
+            ->paginate(5),
+            'subcategory'=>$subcategory,
+            'category'=>$category
+        ];
 
-        return view('ads.list', [
-            'category'=>$category,
-            'subcategory' => $subcategory,
-            'ads' => $ads,
-        ]);
+        return view('ads.list', $data);
     }
 }

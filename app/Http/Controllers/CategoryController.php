@@ -16,16 +16,15 @@ class CategoryController extends Controller
          'categories' => Category::all(),
          'title' => 'Главная'
      ];
-     //dump($data);
+
      return view('categories.list', $data);
   }
 
     //вывод списка подкатегорий
   public function sublist($slug)
   {
-      $category = Category::where('slug', $slug)->firstOrFail();
       return view('categories.sublist', [
-          'category' => $category,
+          'category' => Category::where('slug', $slug)->firstOrFail(),
       ]);
   }
 }

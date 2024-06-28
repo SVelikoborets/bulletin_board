@@ -5,6 +5,7 @@
     <div class="container">
         <div class="row justify-content-around">
             <h1 class="my-3 text-center">Рубрики</h1>
+
             <div class="row justify-content-center  ">
                 @foreach($category->subcategories as $subcategory)
                     <div class="form-flex brick">

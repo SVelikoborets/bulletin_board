@@ -12,12 +12,11 @@
     margin: 0;
 }
 .container {
-    height: 100vh; /* Высота контейнера на всю высоту видимой части экрана */
+    height: 100vh;
 }
 
 .flex-shrink-0 {
-    max-height: 70%; /* Ограничиваем высоту сайдбара */
-
+    max-height: 70%;
 }
 .sidebar {
     margin-top: 5px;

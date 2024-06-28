@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>
-        Главная
-        </x-slot>
+    Главная
+    </x-slot>
         @if(count($categories)>0)
             <div class="container">
                 <div class="row justify-content-around">

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Category;
-use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -69,6 +68,7 @@ class AdminController extends Controller
         $arr = explode('/', $validated['categories_ids']);
         $categoryId = $arr[0];
         $subcategoryId = $arr[1];
+
         $ad->fill([
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -76,18 +76,21 @@ class AdminController extends Controller
             'subcategory_id'=>$subcategoryId,
         ]);
         $ad->save();
+
         return redirect()->route('admin.dashboard');
     }
 
     public function updateUser(Request $request, User $user)
     {
         $validated = $request->validate(self::USER_VALIDATOR);
+
         $user->fill([
             'name' => $validated['userName'],
             'email' => $validated['email'],
             'banned' => $validated['status']
         ]);
         $user->save();
+
         return redirect()->route('admin.dashboard');
     }
 }
