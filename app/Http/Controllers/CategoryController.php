@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    //вывод списка категорий
+
   public function index()
   {
      $data = [
@@ -20,7 +20,6 @@ class CategoryController extends Controller
      return view('categories.list', $data);
   }
 
-    //вывод списка подкатегорий
   public function sublist($slug)
   {
       return view('categories.sublist', [

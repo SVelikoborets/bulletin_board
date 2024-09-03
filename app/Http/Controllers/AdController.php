@@ -15,16 +15,11 @@ class AdController extends Controller
         'description' => 'required',
         'categories_ids'=>'required'
     ];
-
-    //форма создания объявления
-    //по выбранной подкатегории (если она выбрана)
     public function create($selected = null)
     {
         $categories = Category::with('subcategories')->get();
         return view('ads.create',['categories' =>$categories, 'selected' =>$selected]);
     }
-
-    //сохранение объявления в бд,если пользователь активен
     public function store(Request $request)
     {
         if (Auth::user()->isBanned()) {
@@ -50,7 +45,6 @@ class AdController extends Controller
         return redirect()->route('home');
     }
 
-    //просмотр объявления
     public function show(Ad $ad)
     {
         return view('ads.show',[
@@ -58,7 +52,6 @@ class AdController extends Controller
         ]);
     }
 
-    //вывод списка объявлений по категории-подкатегории
     public function advts($category, $subcategory)
     {
         $subcategory = Subcategory::where( 'slug', $subcategory )->firstOrFail();

@@ -26,7 +26,6 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    //список пользователей
     public function users()
     {
         $data = [
@@ -36,7 +35,7 @@ class AdminController extends Controller
         return view('admin.users', $data);
     }
 
-    //список объявлений
+
     public function ads()
     {
         $data = [
@@ -46,7 +45,7 @@ class AdminController extends Controller
         return view('admin.ads', $data);
     }
 
-    //форма редактирования объявления
+
     public function editAd(Ad $ad)
     {
         return view('admin.edit.ad',
@@ -56,7 +55,6 @@ class AdminController extends Controller
             ]);
     }
 
-    //форма редактирования пользователя
     public function editUser(User $user)
     {
         return view('admin.edit.user', ['user'=>$user]);
